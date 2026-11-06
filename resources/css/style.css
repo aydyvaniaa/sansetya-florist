@@ -1,0 +1,16 @@
+:root {
+  --pink: #ffd9e2;
+  --pink-lembut: #fff3ee;
+  --coklat: #4a2b2b;
+  --teks: #3b2323;
+}
+body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--pink-lembut); color: var(--teks); }
+h1, h2 { font-family: 'Playfair Display', serif; }
+
+.grid-produk { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.kartu-produk img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; }
+.tombol { background: var(--coklat); color: #fff; padding: 6px 14px; border-radius: 999px; text-decoration: none; font-size: 12px; }
+
+@media (max-width: 700px) {
+  .grid-produk { grid-template-columns: repeat(2, 1fr); }
+}
