@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-  @include('layouts.header')
+ {{-- @include('layouts.header') --}}
   <main>@yield('content')</main>
-  @include('layouts.footer')
+ {{-- @include('layouts.footer') --}}
 </body>
 </html>
