@@ -17,6 +17,31 @@
   <img src="{{ asset('images/banner.jpg') }}" alt="Buket bunga">
 </section>
 
+<section class="kategori">
+    <h2>Kategori</h2>
+
+    <div class="grid-kategori">
+        @php
+            $kategori = [
+                ['nama' => 'Buket', 'gambar' => 'kategori-buket.jpg'],
+                ['nama' => 'Bunga Hias Mobil', 'gambar' => 'mobil.jpg'],
+                ['nama' => 'Bloom Box', 'gambar' => 'bloom-box.jpg'],
+                ['nama' => 'Artificial', 'gambar' => 'artificial.jpg'],
+                ['nama' => 'Vas Bunga', 'gambar' => 'vas.jpg'],
+                ['nama' => 'Custom', 'gambar' => 'custom.jpg'],
+            ];
+        @endphp
+
+        @foreach ($kategori as $k)
+            <div class="kartu-kategori">
+                <img src="{{ asset('images/'.$k['gambar']) }}"
+                     alt="{{ $k['nama'] }}">
+                <p>{{ $k['nama'] }}</p>
+            </div>
+        @endforeach
+    </div>
+</section>
+
 <section class="best-seller">
   <h2>Best Seller</h2>
   <div class="grid-produk">

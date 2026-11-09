@@ -1,0 +1,512 @@
+
+/* =================================
+   SANSETYA FLORIST - MAIN STYLES
+================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #fde5eb;
+    --pink-light: #fff7f5;
+    --pink-dark: #e9a9b9;
+    --text: #392d30;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--pink-light);
+    color: var(--text);
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* HEADER */
+
+header {
+    background: var(--pink);
+    padding: 15px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 75px;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+header nav a {
+    font-size: 13px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+header nav a:hover {
+    color: #bd7187;
+}
+
+/* MAIN CONTENT */
+
+main {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px 4%;
+}
+
+/* BANNER */
+
+.banner {
+    background: var(--pink);
+    border-radius: 18px;
+    min-height: 210px;
+    padding: 30px 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 35px;
+    overflow: hidden;
+}
+
+.banner div {
+    flex: 1;
+}
+
+.banner h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.banner p {
+    font-size: 13px;
+    line-height: 1.8;
+    max-width: 450px;
+}
+
+.banner img {
+    width: 35%;
+    max-width: 320px;
+    height: 175px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* SECTION TITLE */
+
+section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 23px;
+    margin-bottom: 18px;
+}
+
+/* CATEGORY */
+
+.kategori {
+    margin-bottom: 35px;
+}
+
+.grid-kategori {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+}
+
+.kartu-kategori {
+    background: var(--pink);
+    border-radius: 12px;
+    padding: 12px 8px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.kartu-kategori:hover {
+    transform: translateY(-5px);
+    background: #f8d5df;
+}
+
+.kartu-kategori img {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 8px;
+}
+
+.kartu-kategori p {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* BEST SELLER */
+
+.best-seller {
+    margin-bottom: 40px;
+}
+
+.grid-produk {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.kartu-produk {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 10px;
+    overflow: hidden;
+    transition: 0.3s;
+    box-shadow: 0 3px 12px rgba(100, 50, 60, 0.06);
+}
+
+.kartu-produk:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(100, 50, 60, 0.12);
+}
+
+.kartu-produk img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.kartu-produk .harga {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 12px 0 8px;
+}
+
+.tombol {
+    display: inline-block;
+    background: var(--pink);
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.tombol:hover {
+    background: var(--pink-dark);
+    color: white;
+}
+
+/* FOOTER */
+
+footer {
+    background: var(--pink);
+    padding: 30px 5% 15px;
+    margin-top: 40px;
+}
+
+footer .footer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+footer h3 {
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+footer p,
+footer a {
+    font-size: 12px;
+    line-height: 2;
+}
+
+footer .copyright {
+    text-align: center;
+    border-top: 1px solid #e8bdc8;
+    margin-top: 25px;
+    padding-top: 12px;
+    font-size: 10px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    main {
+        padding: 20px 4%;
+    }
+
+    .banner {
+        padding: 22px;
+        min-height: 160px;
+    }
+
+    .banner h1 {
+        font-size: 22px;
+    }
+
+    .banner img {
+        width: 40%;
+        height: 130px;
+    }
+
+    .grid-kategori {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .grid-produk {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .kartu-produk img {
+        height: 180px;
+    }
+
+    footer .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .banner {
+        padding: 18px;
+        gap: 10px;
+    }
+
+    .banner h1 {
+        font-size: 18px;
+    }
+
+    .banner p {
+        font-size: 10px;
+    }
+
+    .banner img {
+        width: 38%;
+        height: 100px;
+    }
+
+    .grid-produk {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .kartu-produk img {
+        height: 145px;
+    }
+
+    section h2 {
+        font-size: 20px;
+    }
+}
+
+
+/* HEADER TAMBAHAN */
+
+.main-header {
+    background: #fde5eb;
+    padding: 12px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 75px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-circle {
+    width: 48px;
+    height: 48px;
+    border: 1.5px solid #392d30;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-circle span {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+}
+
+.logo-circle small {
+    font-size: 8px;
+}
+
+.logo-name {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.main-header .navbar {
+    display: flex;
+    gap: 30px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 18px;
+    font-size: 21px;
+}
+
+/* FOOTER TAMBAHAN */
+
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.footer-logo p {
+    max-width: 180px;
+}
+
+footer .footer-container a:hover {
+    color: #bd7187;
+}
+
+@media (max-width: 480px) {
+    .logo-name {
+        display: none;
+    }
+
+    .main-header .navbar {
+        gap: 15px;
+    }
+
+    .header-actions {
+        gap: 12px;
+    }
+
+    footer .footer-container {
+        gap: 20px;
+    }
+}
+
+
+.main-header {
+    background: #fde5eb;
+    padding: 12px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 75px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.navbar a {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    color: #bd7187;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #392d30;
+    transition: 0.3s;
+}
+
+.icon-button:hover {
+    background: #f4cbd6;
+    color: #a85f76;
+}
+
+/* LOGO NAVBAR */
+.logo-image {
+    width: 150px;
+    height: 55px;
+    object-fit: contain;
+}
+
+/* LOGO FOOTER */
+.footer-logo-image {
+    width: 150px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-image {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #392d30;
+}
+
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.footer-logo-image {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+}
