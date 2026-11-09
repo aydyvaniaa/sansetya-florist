@@ -13,8 +13,11 @@ class Produk extends Model
         'nama',
         'harga',
         'kategori',
-        'gambar',
+        'jenis_bunga',
+        'warna',
+        'acara',
         'deskripsi',
+        'gambar',
         'terjual',
     ];
 }
