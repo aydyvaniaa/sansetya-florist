@@ -8,11 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('produks', function (Blueprint $table) {
+            Schema::create('produks', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->unsignedInteger('harga');
             $table->string('kategori');
+            $table->string('jenis_bunga')->nullable();
+            $table->string('warna')->nullable();
+            $table->string('acara')->nullable();
             $table->string('gambar')->nullable();
             $table->text('deskripsi')->nullable();
             $table->unsignedInteger('terjual')->default(0);
