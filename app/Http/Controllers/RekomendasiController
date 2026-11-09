@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Produk;
+use App\Services\RekomendasiService;
+use Illuminate\Http\JsonResponse;
+
+class RekomendasiController extends Controller
+{
+    public function show(
+        int $id,
+        RekomendasiService $rekomendasiService
+    ): JsonResponse {
+        $produkDipilih = Produk::findOrFail($id);
+        $semuaProduk = Produk::all();
+
+        $hasilSkor = $rekomendasiService->rekomendasi(
+            $semuaProduk,
+            (int) $produkDipilih->id,
+            4
+        );
+
+        $produkById = $semuaProduk->keyBy('id');
+        $hasil = [];
+
+        foreach ($hasilSkor as $produkId => $skor) {
+            $produk = $produkById->get($produkId);
+
+            if (!$produk) {
+                continue;
+            }
+
+            $hasil[] = [
+                'id' => $produk->id,
+                'nama' => $produk->nama,
+                'harga' => (int) $produk->harga,
+                'kategori' => $produk->kategori,
+                'gambar' => $produk->gambar,
+                'gambar_url' => $produk->gambar
+                    ? asset('images/' . ltrim($produk->gambar, '/'))
+                    : null,
+                'similarity' => round($skor * 100, 2),
+            ];
+        }
+
+        return response()->json([
+            'produk_dipilih' => [
+                'id' => $produkDipilih->id,
+                'nama' => $produkDipilih->nama,
+            ],
+            'jumlah_rekomendasi' => count($hasil),
+            'data' => $hasil,
+        ]);
+    }
+}

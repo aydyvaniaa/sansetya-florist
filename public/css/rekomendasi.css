@@ -1,0 +1,48 @@
+#rekomendasi {
+    padding: 20px;
+}
+
+.kartu-produk.terpilih {
+    outline: 3px solid #4a2c2a;
+    border-radius: 12px;
+}
+
+.rekom-judul {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.rekom-grid {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.rekom-kartu {
+    width: 200px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.rekom-kartu img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.rekom-nama {
+    font-weight: 500;
+    margin: 8px 0 2px;
+}
+
+.rekom-harga {
+    color: #4a2c2a;
+    font-weight: 600;
+}
+
+.rekom-loading,
+.rekom-error,
+.rekom-kosong {
+    text-align: center;
+    color: #6b4c4a;
+}
