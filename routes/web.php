@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Http\Controllers\BerandaController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'beranda');
+Route::get('/', [BerandaController::class, 'index']);
