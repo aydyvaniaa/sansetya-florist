@@ -11,7 +11,7 @@
         <a class="banner-button" href="#katalog">Jelajahi Produk</a>
     </div>
     <img src="{{ asset('images/banner.jpg') }}" alt="Rangkaian bunga Sansetya Florist"
-         onerror="this.onerror=null;this.src='{{ asset('images/logo.png') }}'">
+         onerror="this.onerror=null;this.src='{{ asset('images/bungabanner.png') }}'">
 </section>
 
 <section class="kategori" id="kategori">

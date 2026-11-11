@@ -9,7 +9,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap">
 
     {{-- CSS ditaruh langsung di sini, jadi tidak perlu file style.css terpisah --}}
     <style>
@@ -21,21 +21,25 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-    --pink: #fde5eb;
-    --pink-2: #fbd0dc;
-    --pink-soft: #fff5f7;
-    --burgundy: #9a1830;
-    --burgundy-dark: #7c1226;
-    --text: #3a2a2e;
-    --muted: #7d6a70;
-    --border: #f3dbe2;
-    --white: #fff;
-    --shadow: 0 4px 16px rgba(120, 40, 60, .08);
+    --pink: #FFE6EC;
+    --pink-2: #FFE6EC;
+    --pink-soft: #FFF7F3;
+
+    --burgundy: #4B392D;
+    --burgundy-dark: #39291F;
+
+    --text: #4B392D;
+    --muted: #4B392D;
+
+    --border: #F3DDE0;
+    --white: #FFFFFF;
+
+    --shadow: 0 4px 16px rgba(75, 57, 45, .08);
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--pink-soft);
+    font-family: 'DM Sans', sans-serif;
+    background: var(--pink-light);
     color: var(--text);
     font-size: 14px;
     line-height: 1.6;
@@ -110,23 +114,35 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--burgundy); lin
 }
 
 /* ---------- BANNER ---------- */
+
 .banner {
-    background: linear-gradient(120deg, var(--pink), #fff0f3);
-    border: 1px solid var(--border);
-    border-radius: 22px;
-    min-height: 230px;
-    padding: 32px 46px;
+    background: #FFE6EC;
+    border-radius: 18px;
+    min-height: 210px;
+    padding: 20px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 28px;
-    margin-bottom: 40px;
+    gap: 20px;
+    margin-bottom: 35px;
     overflow: hidden;
 }
+
+
 .banner-content { flex: 1; }
 .banner h1 { font-size: 32px; margin-bottom: 12px; }
 .banner p { font-size: 14px; color: var(--muted); max-width: 460px; }
-.banner img { width: 36%; max-width: 340px; height: 190px; object-fit: cover; border-radius: 18px; background: #fff; }
+.banner img {
+    width: 38%;
+    max-width: 320px;
+    height: 190px;
+    object-fit: contain;
+    object-position: center;
+    flex-shrink: 0;
+    display: block;
+    margin: auto 0;
+}
+
 
 .banner-eyebrow, .section-eyebrow {
     display: inline-block;
