@@ -4,6 +4,16 @@ namespace App\Services;
 
 use Illuminate\Support\Collection;
 
+/**
+ * Content-Based Filtering memakai TF-IDF dan Cosine Similarity.
+ *
+ * Alur:
+ * 1. Setiap produk diubah menjadi "dokumen" berisi token dari atributnya.
+ * 2. Token dihitung bobotnya dengan TF-IDF -> setiap produk jadi sebuah vektor.
+ * 3. Vektor produk-produk yang dipilih dirata-rata menjadi satu "profil selera".
+ * 4. Profil dibandingkan dengan produk lain memakai Cosine Similarity.
+ * 5. Produk dengan skor tertinggi (yang belum dipilih) direkomendasikan.
+ */
 class RekomendasiService
 {
     /** Kata umum yang tidak banyak membantu membedakan produk. */
@@ -14,33 +24,147 @@ class RekomendasiService
     ];
 
     /**
+     * Bobot tiap atribut. Semakin besar, semakin berpengaruh pada kemiripan.
+     * Bobot diterapkan dengan mengulang token sebanyak nilai bobotnya.
+     */
+    private array $bobotFitur = [
+        'kategori'  => 3,
+        'jenis'     => 3,
+        'warna'     => 2,
+        'acara'     => 2,
+        'nama'      => 2,
+        'deskripsi' => 1,
+        'harga'     => 1,
+    ];
+
+    /**
      * Menghasilkan daftar ID produk beserta skor kemiripannya.
      * Skor berada pada rentang 0 sampai 1 dan diurutkan dari terbesar.
      *
-     * @return array<int, float>
+     * @param  Collection  $semuaProduk  seluruh produk (model Produk)
+     * @param  int|array   $idDipilih    satu ID atau beberapa ID produk yang dipilih
+     * @param  int         $jumlah       jumlah rekomendasi maksimal
+     * @return array<int, float>         [id_produk => skor]
      */
     public function rekomendasi(
         Collection $semuaProduk,
-        int $idProduk,
+        int|array $idDipilih,
         int $jumlah = 4
     ): array {
-        if ($semuaProduk->isEmpty() || $jumlah < 1) {
+        $idDipilih = array_values(array_unique(array_map('intval', (array) $idDipilih)));
+
+        if ($semuaProduk->isEmpty() || $jumlah < 1 || $idDipilih === []) {
             return [];
         }
 
-        // Setiap produk diubah menjadi dokumen/token berdasarkan atributnya.
+        // 1. Ubah setiap produk menjadi daftar token.
         $dokumen = [];
         foreach ($semuaProduk as $produk) {
-            $dokumen[(int) $produk->id] = $this->tokenisasi(
-                $this->gabungFitur($produk)
-            );
+            $dokumen[(int) $produk->id] = $this->buatToken($produk);
         }
 
-        if (!array_key_exists($idProduk, $dokumen)) {
+        // Abaikan ID yang tidak ada di daftar produk.
+        $idDipilih = array_values(array_filter(
+            $idDipilih,
+            fn ($id) => array_key_exists($id, $dokumen)
+        ));
+
+        if ($idDipilih === []) {
             return [];
         }
 
-        // Document Frequency: jumlah dokumen yang mengandung sebuah token.
+        // 2. Hitung IDF lalu TF-IDF untuk semua produk.
+        $idf    = $this->hitungIdf($dokumen);
+        $vektor = $this->hitungTfIdf($dokumen, $idf);
+
+        // 3. Gabungkan produk-produk yang dipilih menjadi satu profil.
+        $profil = $this->buatProfil($vektor, $idDipilih);
+
+        // 4. Bandingkan profil dengan produk lain yang belum dipilih.
+        $skor = [];
+        foreach ($vektor as $id => $vektorProduk) {
+            if (in_array($id, $idDipilih, true)) {
+                continue;
+            }
+
+            $nilai = $this->cosine($profil, $vektorProduk);
+            if ($nilai > 0) {
+                $skor[$id] = $nilai;
+            }
+        }
+
+        // 5. Urutkan dari skor terbesar lalu ambil beberapa teratas.
+        arsort($skor, SORT_NUMERIC);
+
+        return array_slice($skor, 0, $jumlah, true);
+    }
+
+    /**
+     * Mengubah atribut produk menjadi daftar token berbobot.
+     * Setiap token diberi awalan nama atribut (contoh: "warna_merah")
+     * supaya kata yang sama dari kolom berbeda tidak tercampur.
+     */
+    private function buatToken($produk): array
+    {
+        $isi = [
+            'kategori'  => $produk->kategori ?? '',
+            'jenis'     => $produk->jenis_bunga ?? '',
+            'warna'     => $produk->warna ?? '',
+            'acara'     => $produk->acara ?? '',
+            'nama'      => $produk->nama ?? '',
+            'deskripsi' => $produk->deskripsi ?? '',
+            'harga'     => $this->kelompokHarga((int) ($produk->harga ?? 0)),
+        ];
+
+        $tokens = [];
+        foreach ($isi as $label => $teks) {
+            $bobot = $this->bobotFitur[$label];
+
+            foreach ($this->tokenisasi((string) $teks) as $kata) {
+                for ($i = 0; $i < $bobot; $i++) {
+                    $tokens[] = $label . '_' . $kata;
+                }
+            }
+        }
+
+        return $tokens;
+    }
+
+    /** Harga dikelompokkan agar produk dengan rentang harga berdekatan sedikit mirip. */
+    private function kelompokHarga(int $harga): string
+    {
+        if ($harga < 100000) {
+            return 'murah';
+        }
+
+        if ($harga <= 200000) {
+            return 'menengah';
+        }
+
+        return 'tinggi';
+    }
+
+    /** Mengubah teks menjadi token huruf kecil dan menghapus stopword. */
+    private function tokenisasi(string $teks): array
+    {
+        $teks   = mb_strtolower($teks, 'UTF-8');
+        $tokens = preg_split('/[^\p{L}\p{N}]+/u', $teks, -1, PREG_SPLIT_NO_EMPTY) ?: [];
+
+        return array_values(array_filter($tokens, function ($token) {
+            return mb_strlen($token, 'UTF-8') > 1
+                && !in_array($token, $this->stopword, true);
+        }));
+    }
+
+    /**
+     * IDF = log(1 + N / (1 + df)) + 1
+     * df = jumlah dokumen yang mengandung token. Token langka mendapat bobot lebih besar.
+     *
+     * @param  array<int, array<int, string>>  $dokumen
+     * @return array<string, float>
+     */
+    private function hitungIdf(array $dokumen): array
+    {
         $jumlahDokumen = count($dokumen);
         $df = [];
 
@@ -50,17 +174,26 @@ class RekomendasiService
             }
         }
 
-        // Smoothed IDF mencegah pembagian nol dan menjaga bobot tetap positif.
         $idf = [];
         foreach ($df as $token => $frekuensi) {
             $idf[$token] = log(1 + ($jumlahDokumen / (1 + $frekuensi))) + 1;
         }
 
-        // TF-IDF = frekuensi token dalam dokumen x nilai IDF token.
+        return $idf;
+    }
+
+    /**
+     * TF-IDF = (frekuensi token / total token dokumen) x IDF token.
+     *
+     * @return array<int, array<string, float>>  [id_produk => [token => bobot]]
+     */
+    private function hitungTfIdf(array $dokumen, array $idf): array
+    {
         $vektor = [];
+
         foreach ($dokumen as $id => $tokens) {
             $vektorProduk = [];
-            $totalToken = count($tokens);
+            $totalToken   = count($tokens);
 
             if ($totalToken > 0) {
                 foreach (array_count_values($tokens) as $token => $frekuensi) {
@@ -72,79 +205,32 @@ class RekomendasiService
             $vektor[$id] = $vektorProduk;
         }
 
-        // Bandingkan produk terpilih dengan produk lain menggunakan cosine.
-        $skor = [];
-        foreach ($vektor as $id => $vektorLain) {
-            if ((int) $id === $idProduk) {
-                continue;
-            }
-
-            $nilai = $this->cosine($vektor[$idProduk], $vektorLain);
-            if ($nilai > 0) {
-                $skor[(int) $id] = $nilai;
-            }
-        }
-
-        arsort($skor, SORT_NUMERIC);
-
-        return array_slice($skor, 0, $jumlah, true);
+        return $vektor;
     }
 
     /**
-     * Menggabungkan atribut produk menjadi teks berbobot.
-     * Pengulangan token berfungsi sebagai pembobotan fitur sederhana.
+     * Profil selera = rata-rata vektor TF-IDF dari semua produk yang dipilih.
+     * Jika hanya satu produk dipilih, profil sama dengan vektor produk itu.
      */
-    private function gabungFitur($produk): string
+    private function buatProfil(array $vektor, array $idDipilih): array
     {
-        $fitur = [];
+        $profil = [];
 
-        $this->tambahkanFitur($fitur, 'kategori', $produk->kategori ?? '', 3);
-        $this->tambahkanFitur($fitur, 'jenis', $produk->jenis_bunga ?? '', 3);
-        $this->tambahkanFitur($fitur, 'warna', $produk->warna ?? '', 2);
-        $this->tambahkanFitur($fitur, 'acara', $produk->acara ?? '', 2);
-        $this->tambahkanFitur($fitur, 'nama', $produk->nama ?? '', 2);
-        $this->tambahkanFitur($fitur, 'deskripsi', $produk->deskripsi ?? '', 1);
-
-        // Harga dikelompokkan agar produk dengan rentang harga berdekatan
-        // dapat memiliki sedikit kemiripan tambahan.
-        $harga = (int) ($produk->harga ?? 0);
-        if ($harga < 100000) {
-            $kelompokHarga = 'murah';
-        } elseif ($harga <= 200000) {
-            $kelompokHarga = 'menengah';
-        } else {
-            $kelompokHarga = 'tinggi';
-        }
-        $this->tambahkanFitur($fitur, 'harga', $kelompokHarga, 1);
-
-        return implode(' ', $fitur);
-    }
-
-    private function tambahkanFitur(array &$fitur, string $label, string $nilai, int $bobot): void
-    {
-        $nilai = trim($nilai);
-        if ($nilai === '') {
-            return;
+        foreach ($idDipilih as $id) {
+            foreach ($vektor[$id] as $token => $nilai) {
+                $profil[$token] = ($profil[$token] ?? 0) + $nilai;
+            }
         }
 
-        // Label atribut membedakan kata yang berasal dari kolom berbeda.
-        $fitur[] = str_repeat($label . '_', $bobot) . $nilai;
-        $fitur[] = str_repeat($nilai . ' ', max(0, $bobot - 1));
+        $jumlah = count($idDipilih);
+        foreach ($profil as $token => $nilai) {
+            $profil[$token] = $nilai / $jumlah;
+        }
+
+        return $profil;
     }
 
-    /** Mengubah teks menjadi token huruf kecil dan menghapus stopword. */
-    private function tokenisasi(string $teks): array
-    {
-        $teks = mb_strtolower($teks, 'UTF-8');
-        $tokens = preg_split('/[^\p{L}\p{N}_]+/u', $teks, -1, PREG_SPLIT_NO_EMPTY) ?: [];
-
-        return array_values(array_filter($tokens, function ($token) {
-            return mb_strlen($token, 'UTF-8') > 1
-                && !in_array($token, $this->stopword, true);
-        }));
-    }
-
-    /** Menghitung Cosine Similarity antara dua vektor TF-IDF. */
+    /** Cosine Similarity = (A . B) / (|A| x |B|). */
     private function cosine(array $a, array $b): float
     {
         if ($a === [] || $b === []) {
