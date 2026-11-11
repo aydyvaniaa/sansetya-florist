@@ -29,8 +29,6 @@
                 ['nama' => 'Bunga Hias Meja', 'gambar' => 'meja-minimalis.png'],
                 ['nama' => 'Bloom Box', 'gambar' => 'bloom-pastel.png'],
                 ['nama' => 'Artificial', 'gambar' => 'artificial-peony.png'],
-                ['nama' => 'Vas Bunga', 'gambar' => 'vas-putih.png'],
-                ['nama' => 'Custom', 'gambar' => 'custom.png'],
             ];
         @endphp
 
