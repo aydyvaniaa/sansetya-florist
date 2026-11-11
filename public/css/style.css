@@ -10,18 +10,19 @@
 }
 
 :root {
-    --pink: #fde5eb;
-    --pink-light: #fff7f5;
+    --pink: #FFE6EC;
+    --pink-light: #FFF7F3;
     --pink-dark: #e9a9b9;
-    --text: #392d30;
-    --white: #ffffff;
+    --text: #4B392D;
+    --white: #FFFFFF;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     background: var(--pink-light);
     color: var(--text);
     font-size: 14px;
+    line-height: 1.6;
 }
 
 a {
@@ -73,9 +74,9 @@ main {
 /* BANNER */
 
 .banner {
-    background: var(--pink);
+    background: #FFE6EC;
     border-radius: 18px;
-    min-height: 210px;
+    min-height: 300px;
     padding: 30px 45px;
     display: flex;
     align-items: center;
@@ -89,11 +90,11 @@ main {
     flex: 1;
 }
 
-.banner h1 {
+.banner h1,
+section h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 30px;
-    line-height: 1.4;
-    margin-bottom: 12px;
+    font-weight: 600;
+    color: #4B392D;
 }
 
 .banner p {
@@ -103,11 +104,17 @@ main {
 }
 
 .banner img {
-    width: 35%;
-    max-width: 320px;
-    height: 175px;
-    object-fit: cover;
+    width: 32%;
+    max-width: 380px;
+    height: 250px;
+    object-fit: contain;
+    object-position: center;
     border-radius: 15px;
+    flex-shrink: 0;
+}
+
+.banner {
+    overflow: hidden;
 }
 
 /* SECTION TITLE */
@@ -509,4 +516,71 @@ footer .footer-container a:hover {
     width: 65px;
     height: 65px;
     object-fit: contain;
+}
+
+/* WARNA UTAMA WEBSITE */
+
+body {
+    background: #FFF7F3 !important;
+    color: #4B392D !important;
+}
+
+/* SEMUA TULISAN */
+
+h1, h2, h3, h4, h5, h6,
+p, span, label, a,
+.navbar a {
+    color: #4B392D;
+}
+
+/* NAVBAR */
+
+.main-header {
+    background: #FFE6EC !important;
+}
+
+/* BANNER */
+
+.banner {
+    background: #FFE6EC !important;
+}
+
+/* KATEGORI */
+
+.kartu-kategori {
+    background: #FFFFFF !important;
+}
+
+/* CARD PRODUK */
+
+.kartu-produk,
+.rekom-kartu {
+    background: #FFFFFF !important;
+}
+
+/* FOOTER */
+
+footer {
+    background: #FFE6EC !important;
+}
+
+/* TOMBOL */
+
+.banner-button,
+.tombol-utama,
+.tombol-order {
+    background: #4B392D !important;
+    color: #FFFFFF !important;
+}
+
+.tombol-outline {
+    color: #4B392D !important;
+    border-color: #4B392D !important;
+    background: #FFFFFF !important;
+}
+
+/* ICON NAVBAR */
+
+.icon-button {
+    color: #4B392D !important;
 }
