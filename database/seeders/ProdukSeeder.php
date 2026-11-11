@@ -15,7 +15,6 @@ class ProdukSeeder extends Seeder
             ['Bunga Meja Minimalis', 95000, 'Bunga Hias Meja', 'baby breath', 'putih', 'dekorasi rumah', 'Rangkaian bunga kecil bergaya minimalis untuk mempercantik meja.', 'meja-minimalis.jpg', 45],
             ['Bloom Box Pastel', 200000, 'Bloom Box', 'mawar', 'pastel', 'ulang tahun hadiah', 'Kotak bunga warna pastel yang cantik, cocok jadi kado spesial.', 'bloom-pastel.jpg', 95],
             ['Bunga Artificial Peony', 85000, 'Artificial', 'peony', 'pink', 'dekorasi rumah', 'Peony artificial yang awet dan nggak layu untuk hiasan ruangan.', 'artificial-peony.jpg', 60],
-            ['Vas Keramik Putih', 70000, 'Vas Bunga', '', 'putih', 'dekorasi rumah', 'Vas keramik putih polos yang cocok dipadukan dengan berbagai bunga.', 'vas-putih.jpg', 30],
             ['Buket Custom', 250000, 'Custom', 'campuran', 'bebas', 'semua acara', 'Buket sesuai permintaan, jenis bunga dan warna bisa dipilih sendiri.', 'custom.jpg', 25],
             ['Buket Bunga Matahari', 150000, 'Buket', 'matahari', 'kuning', 'wisuda ulang tahun', 'Buket bunga matahari kuning yang ceria untuk wisuda atau ulang tahun.', 'buket-matahari.jpg', 70],
             ['Buket Mix Warna-Warni', 100000, 'Buket', 'campuran', 'warna-warni', 'ulang tahun', 'Buket campuran bunga warna-warni yang meriah dan penuh semangat.', 'buket-mix.jpg', 90],
