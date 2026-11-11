@@ -25,12 +25,12 @@
     <div class="grid-kategori">
         @php
             $daftarKategori = [
-                ['nama' => 'Buket', 'gambar' => 'kategori-buket.jpg'],
-                ['nama' => 'Bunga Hias Meja', 'gambar' => 'meja-minimalis.jpg'],
-                ['nama' => 'Bloom Box', 'gambar' => 'bloom-pastel.jpg'],
-                ['nama' => 'Artificial', 'gambar' => 'artificial-peony.jpg'],
-                ['nama' => 'Vas Bunga', 'gambar' => 'vas-putih.jpg'],
-                ['nama' => 'Custom', 'gambar' => 'custom.jpg'],
+                ['nama' => 'Buket', 'gambar' => 'kategori-buket.png'],
+                ['nama' => 'Bunga Hias Meja', 'gambar' => 'meja-minimalis.png'],
+                ['nama' => 'Bloom Box', 'gambar' => 'bloom-pastel.png'],
+                ['nama' => 'Artificial', 'gambar' => 'artificial-peony.png'],
+                ['nama' => 'Vas Bunga', 'gambar' => 'vas-putih.png'],
+                ['nama' => 'Custom', 'gambar' => 'custom.png'],
             ];
         @endphp
 
