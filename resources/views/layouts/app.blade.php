@@ -435,7 +435,17 @@ footer .copyright { text-align: center; border-top: 1px solid var(--pink-2); mar
     font-weight: 600;
     transition: .2s;
 }
-.tombol-kembali:hover { background: var(--pink); transform: translateX(-3px); }
+.tombol-kembali:hover {
+    background: #4E382B;
+    color: #fff;
+    border-color: #4E382B;
+    transform: translateX(-3px);
+}
+.tombol-kembali:active {
+    background: #35251D;
+    color: #fff;
+    border-color: #35251D;
+}
 
     </style>
 </head>

@@ -3,7 +3,7 @@
 @section('title', $produk->nama . ' - Sansetya Florist')
 
 @section('content')
-<a href="{{ route('beranda') }}#katalog" class="tombol-kembali">&larr; Kembali ke Produk</a>
+<a href="{{ route('beranda') }}#katalog" class="tombol-kembali">< Kembali ke Produk</a>
 
 <nav class="breadcrumb">
     <a href="{{ route('beranda') }}">Beranda</a>
