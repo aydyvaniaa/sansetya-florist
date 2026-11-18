@@ -21,6 +21,21 @@ class ProdukController extends Controller
     private const MAKS_JUMLAH = 99;
 
     /**
+ * Halaman katalog seluruh produk.
+ */
+public function index()
+{
+    $produk = Produk::orderBy('nama', 'asc')->get();
+
+    $kategori = Produk::select('kategori')
+        ->distinct()
+        ->orderBy('kategori')
+        ->pluck('kategori');
+
+    return view('katalog', compact('produk', 'kategori'));
+}
+
+    /**
      * Halaman detail produk.
      * Rekomendasi dihitung dari produk yang sedang dibuka, produk yang pernah
      * dibuka sebelumnya, dan produk yang sudah ada di keranjang.

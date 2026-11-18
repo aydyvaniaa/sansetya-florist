@@ -43,3 +43,6 @@ Route::get('/rekomendasi/{id}', [RekomendasiController::class, 'show'])
 
 Route::delete('/rekomendasi', [RekomendasiController::class, 'reset'])
     ->name('rekomendasi.reset');
+
+Route::get('/katalog', [ProdukController::class, 'index'])
+    ->name('katalog');

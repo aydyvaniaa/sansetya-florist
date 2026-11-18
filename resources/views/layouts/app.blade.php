@@ -74,15 +74,22 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--burgundy); lin
 
 .logo { display: flex; align-items: center; gap: 12px; }
 .logo-image { width: 54px; height: 54px; object-fit: contain; }
-.logo-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--burgundy); }
+.logo-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--burgundy);
+}
 
 .header-right { display: flex; align-items: center; gap: 22px; }
 .navbar { display: flex; align-items: center; gap: 8px; }
 .navbar a {
     padding: 8px 16px;
     border-radius: 12px;
-    font-size: 14px;
-    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
     color: var(--text);
     transition: .2s;
 }

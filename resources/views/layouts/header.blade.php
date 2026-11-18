@@ -10,9 +10,16 @@
 
     <div class="header-right">
         <nav class="navbar">
-            <a href="{{ route('beranda') }}" class="{{ request()->routeIs('beranda') ? 'aktif' : '' }}">Beranda</a>
-            <a href="{{ route('beranda') }}#katalog">Katalog</a>
-        </nav>
+    <a href="{{ route('beranda') }}"
+       class="{{ request()->routeIs('beranda') ? 'aktif' : '' }}">
+        BERANDA
+    </a>
+
+    <a href="{{ route('katalog') }}"
+       class="{{ request()->routeIs('katalog') ? 'aktif' : '' }}">
+        KATALOG
+    </a>
+</nav>
 
         <div class="header-actions">
             <a href="#" class="icon-button" title="Akun">
