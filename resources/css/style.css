@@ -311,10 +311,37 @@ section { margin-bottom: 44px; }
 .item-produk a:hover { text-decoration: underline; }
 .item-subtotal { font-weight: 700; font-size: 15px; }
 
-.qty-form { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
-.qty-form button { width: 38px; height: 40px; border: 0; background: #fff; color: var(--burgundy); font-size: 17px; font-weight: 700; cursor: pointer; }
+/* posisi tombol qty agar tepat di tengah */
+.qty-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    width: fit-content;
+    margin: 0 auto;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.qty-form button {
+    width: 38px;
+    height: 40px;
+    flex-shrink: 0;
+    border: 0;
+    background: #fff;
+    color: var(--burgundy);
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+}
 .qty-form button:hover { background: var(--pink); }
-.qty-form span { min-width: 40px; text-align: center; font-weight: 600; }
+.qty-form span {
+    min-width: 40px;
+    text-align: center;
+    font-weight: 600;
+}
 
 .btn-hapus { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--pink-2); background: #fff; color: var(--burgundy); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: .2s; }
 .btn-hapus:hover { background: var(--pink); }
@@ -369,4 +396,15 @@ footer .copyright { text-align: center; border-top: 1px solid var(--pink-2); mar
     .navbar a { padding: 6px 10px; font-size: 13px; }
     .header-right { gap: 8px; }
     .banner img { display: none; }
+}
+
+@media (min-width: 821px) {
+    .baris-keranjang:not(.judul) > .qty-form {
+        justify-self: center;
+        width: fit-content;
+    }
+
+    .baris-keranjang.judul > span:nth-child(3) {
+        text-align: center;
+    }
 }

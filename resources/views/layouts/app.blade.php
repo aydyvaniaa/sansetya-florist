@@ -349,7 +349,18 @@ section { margin-bottom: 44px; }
 .item-produk a:hover { text-decoration: underline; }
 .item-subtotal { font-weight: 700; font-size: 15px; }
 
-.qty-form { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.qty-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: start;
+    margin: 0;
+    width: fit-content;
+    transform: translateX(-40px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+}
 .qty-form button { width: 38px; height: 40px; border: 0; background: #fff; color: var(--burgundy); font-size: 17px; font-weight: 700; cursor: pointer; }
 .qty-form button:hover { background: var(--pink); }
 .qty-form span { min-width: 40px; text-align: center; font-weight: 600; }

@@ -7,7 +7,7 @@
     <div class="alert alert-sukses">{{ session('sukses') }}</div>
 @endif
 
-<a href="{{ route('beranda') }}#katalog" class="tombol-kembali">&larr; Kembali Belanja</a>
+<a href="{{ route('beranda') }}#katalog" class="tombol-kembali">< Kembali Belanja</a>
 
 <section class="keranjang-box">
     <div class="keranjang-head">
