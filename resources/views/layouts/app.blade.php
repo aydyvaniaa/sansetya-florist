@@ -11,6 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap">
 
+
+
     {{-- CSS ditaruh langsung di sini, jadi tidak perlu file style.css terpisah --}}
     <style>
 /* =====================================================
@@ -24,6 +26,7 @@
     --pink: #FFE6EC;
     --pink-2: #FFE6EC;
     --pink-soft: #FFF7F3;
+    --pink-light: #FFF7F3;
 
     --burgundy: #4B392D;
     --burgundy-dark: #39291F;
@@ -93,23 +96,35 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--burgundy); lin
     color: var(--text);
     transition: .2s;
 }
-.navbar a:hover, .navbar a.aktif { background: #fff; color: var(--burgundy); }
+
+.navbar a:hover,
+.navbar a.aktif {
+    background: #fff;
+    color: var(--burgundy);
+}
 
 .header-actions { display: flex; align-items: center; gap: 6px; }
+
 .icon-button {
     position: relative;
-    width: 42px; height: 42px;
-    display: flex; align-items: center; justify-content: center;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
     color: var(--burgundy);
     transition: .2s;
 }
+
 .icon-button:hover { background: #fff; }
 
 .badge-keranjang {
     position: absolute;
-    top: -2px; right: -4px;
-    min-width: 19px; height: 19px;
+    top: -2px;
+    right: -4px;
+    min-width: 19px;
+    height: 19px;
     padding: 0 5px;
     border-radius: 20px;
     background: #e03a4e;
@@ -447,7 +462,230 @@ footer .copyright { text-align: center; border-top: 1px solid var(--pink-2); mar
     border-color: #35251D;
 }
 
+
+/* ===== SANSETYA CAROUSEL ===== */
+
+.sf-carousel {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #FFE6EC;
+    margin-bottom: 35px;
+}
+
+.sf-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 55px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .8s ease;
+    background: #FFE6EC;
+}
+
+.sf-slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sf-banner-content {
+    width: 52%;
+    position: relative;
+    z-index: 2;
+    margin-left: 30px;
+}
+
+.sf-banner-content span {
+    color: #C0617A;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.sf-banner-content h1 {
+    font-size: 38px;
+    line-height: 1.15;
+    margin: 12px 0;
+    color: #4B392D;
+}
+
+.sf-banner-content h1 em {
+    color: #D77D98;
+}
+
+.sf-banner-content p {
+    font-size: 14px;
+    color: #4B392D;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+.sf-banner-button {
+    display: inline-block;
+    background: #4B392D;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.sf-banner-button:hover {
+    background: #39291F;
+    color: white;
+}
+
+.sf-slide img {
+    width: 43%;
+    height: 250px;
+    object-fit: contain;
+}
+
+.sf-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    border: none;
+    background: rgba(255,255,255,.7);
+    color: #4B392D;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.sf-prev { left: 12px; }
+.sf-next { right: 12px; }
+
+.sf-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 9px;
+    z-index: 6;
+}
+
+.sf-dot {
+    width: 10px;
+    height: 10px;
+    border: none;
+    border-radius: 50%;
+    background: #DDA8B6;
+    cursor: pointer;
+}
+
+.sf-dot.active {
+    background: #4B392D;
+}
+
+@media (max-width: 600px) {
+    .sf-carousel {
+        height: 400px;
+    }
+
+    .sf-slide {
+        padding: 25px;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .sf-banner-content {
+        width: 100%;
+         margin-left: 0;
+    }
+
+    .sf-banner-content h1 {
+        font-size: 27px;
+    }
+
+    .sf-slide img {
+        width: 75%;
+        height: 145px;
+    }
+}
+
+
+/* ===== ANIMASI CAROUSEL ===== */
+
+/* animasi tulisan dari kiri */
+@keyframes textMasuk {
+    from {
+        opacity: 0;
+        transform: translateX(-45px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* animasi gambar dari kanan */
+@keyframes gambarMasuk {
+    from {
+        opacity: 0;
+        transform: translateX(55px) scale(.88);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* animasi tulisan utama */
+.sf-slide.active .sf-banner-content {
+    animation: textMasuk 1s ease forwards;
+}
+
+/* animasi gambar bunga */
+.sf-slide.active img {
+    animation: gambarMasuk 1.2s ease forwards;
+}
+
+/* tulisan kecil */
+.sf-slide.active .sf-banner-content span {
+    animation: textMasuk .8s ease .1s both;
+}
+
+/* judul */
+.sf-slide.active .sf-banner-content h1 {
+    animation: textMasuk .9s ease .25s both;
+}
+
+/* deskripsi */
+.sf-slide.active .sf-banner-content p {
+    animation: textMasuk .9s ease .4s both;
+}
+
+/* tombol */
+.sf-slide.active .sf-banner-button {
+    animation: textMasuk .9s ease .55s both;
+}
+
+/* aksesibilitas: kurangi animasi jika diminta perangkat */
+@media (prefers-reduced-motion: reduce) {
+    .sf-slide,
+    .sf-slide.active .sf-banner-content,
+    .sf-slide.active img,
+    .sf-slide.active .sf-banner-content span,
+    .sf-slide.active .sf-banner-content h1,
+    .sf-slide.active .sf-banner-content p,
+    .sf-slide.active .sf-banner-button {
+        animation: none;
+        transition: none;
+    }
+}
+
+
     </style>
+
 </head>
 <body>
     @include('layouts.header')
