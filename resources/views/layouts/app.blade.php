@@ -26,7 +26,7 @@
     --pink: #FFE6EC;
     --pink-2: #FFE6EC;
     --pink-soft: #FFF7F3;
-    --pink-light: #FFF7F3;
+    --white: #FFFFFF;
 
     --burgundy: #4B392D;
     --burgundy-dark: #39291F;
